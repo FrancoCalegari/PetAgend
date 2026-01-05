@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title><%= title %> - PetAgent</title>
+		<link rel="stylesheet" href="/css/style.css" />
+		<link rel="stylesheet" href="/css/responsive.css" />
+	</head>
+	<body>
+		<a
+			href="/pets/<%= pet.id %>"
+			class="back"
+			style="display: block; margin: 20px; color: var(--primary-color)"
+			>&larr; Back to Pet</a
+		>
+		<form
+			action="/pets/<%= pet.id %>/medical/<%= doc.id %>/edit"
+			method="POST"
+			enctype="multipart/form-data"
+			class="styled-form"
+		>
+			<h2>Edit Document</h2>
+			<input
+				type="text"
+				name="doctor_name"
+				value="<%= doc.doctor_name %>"
+				placeholder="Doctor Name"
+			/>
+			<label>Date:</label>
+			<input type="date" name="date" value="<%= doc.date %>" required />
+			<textarea name="info" placeholder="Important Info/Notes">
+<%= doc.info %></textarea
+			>
+
+			<label>Current File:</label>
+			<div style="margin-bottom: 10px">
+				<a
+					href="<%= doc.file_url %>"
+					target="_blank"
+					style="color: var(--accent-color)"
+					>View Current File</a
+				>
+			</div>
+			<label>Replace File (Optional):</label>
+			<input type="file" name="file" />
+
+			<button type="submit">Update Document</button>
+		</form>
+	</body>
+</html>

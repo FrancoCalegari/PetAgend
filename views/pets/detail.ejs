@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="theme-color" content="#6c5ce7" />
+		<title><%= title %> - PetAgent</title>
+		<link rel="stylesheet" href="/css/style.css" />
+		<link rel="stylesheet" href="/css/responsive.css" />
+		<script src="/js/theme.js"></script>
+		<script src="/js/modal.js"></script>
+		<!-- Material Icons for buttons -->
+		<link
+			href="https://fonts.googleapis.com/icon?family=Material+Icons"
+			rel="stylesheet"
+		/>
+	</head>
+	<body>
+		<div style="padding: 20px">
+			<a
+				href="/dashboard"
+				class="back"
+				style="
+					color: var(--primary-color);
+					font-weight: 600;
+					margin-bottom: 20px;
+					display: inline-block;
+				"
+				>&larr; Back to Dashboard</a
+			>
+		</div>
+
+		<div class="container">
+			<div class="detail-header">
+				<img
+					src="<%= pet.photo_url || '/images/default-pet.png' %>"
+					alt="<%= pet.name %>"
+				/>
+				<div class="pet-info">
+					<div
+						style="
+							display: flex;
+							justify-content: space-between;
+							align-items: center;
+							width: 100%;
+						"
+					>
+						<h1 style="margin: 0"><%= pet.name %> <%= pet.surname %></h1>
+						<a
+							href="/pets/<%= pet.id %>/edit"
+							class="btn-icon btn-edit"
+							title="Edit Pet"
+							style="
+								width: auto;
+								height: auto;
+								padding: 5px 10px;
+								border-radius: 8px;
+								text-decoration: none;
+							"
+						>
+							<span
+								class="material-icons"
+								style="font-size: 1.2rem; margin-right: 4px"
+								>edit</span
+							>
+							Edit
+						</a>
+					</div>
+					<div class="pet-badges" style="margin-top: 10px">
+						<span class="badge"
+							><%= pet.Category ? pet.Category.name : 'Unknown' %></span
+						>
+						<span class="badge"><%= pet.blood_type || 'N/A' %></span>
+						<span class="badge">DNI: <%= pet.dni || 'N/A' %></span>
+					</div>
+				</div>
+			</div>
+
+			<div class="section">
+				<div class="section-title">
+					<h3>Medical Documents</h3>
+					<a href="/pets/<%= pet.id %>/medical/add" class="action-btn-small"
+						>+ Add Doc</a
+					>
+				</div>
+
+				<% if (pet.MedicalDocs && pet.MedicalDocs.length > 0) { %> <%
+				pet.MedicalDocs.forEach(doc => { %>
+				<div class="list-item">
+					<div class="list-content">
+						<strong><%= doc.date %> - <%= doc.doctor_name %></strong>
+						<p><%= doc.info %></p>
+					</div>
+					<div class="actions">
+						<a
+							href="<%= doc.file_url %>"
+							target="_blank"
+							class="btn-icon btn-view"
+							title="View"
+							><span class="material-icons">visibility</span></a
+						>
+						<a
+							href="/pets/<%= pet.id %>/medical/<%= doc.id %>/edit"
+							class="btn-icon btn-edit"
+							title="Edit"
+							><span class="material-icons">edit</span></a
+						>
+						<form
+							action="/pets/<%= pet.id %>/medical/<%= doc.id %>/delete"
+							method="POST"
+							onsubmit="showConfirmModal(event, this)"
+						>
+							<button type="submit" class="btn-icon btn-delete" title="Delete">
+								<span class="material-icons">delete</span>
+							</button>
+						</form>
+					</div>
+				</div>
+				<% }) %> <% } else { %>
+				<p style="color: #999; text-align: center">No documents found.</p>
+				<% } %>
+			</div>
+
+			<div class="section" style="margin-top: 40px">
+				<div class="section-title">
+					<h3>Food Log</h3>
+					<a href="/pets/<%= pet.id %>/food/add" class="action-btn-small"
+						>+ Add Food</a
+					>
+				</div>
+
+				<% if (pet.FoodLogs && pet.FoodLogs.length > 0) { %> <%
+				pet.FoodLogs.forEach(food => { %>
+				<div class="list-item">
+					<div class="list-content">
+						<strong
+							><%= new Date(food.fed_at).toLocaleString() %> - <%=
+							food.food_name %></strong
+						>
+						<p>Qty: <%= food.quantity %> | <%= food.notes %></p>
+					</div>
+					<div class="actions">
+						<a
+							href="/pets/<%= pet.id %>/food/<%= food.id %>/edit"
+							class="btn-icon btn-edit"
+							title="Edit"
+							><span class="material-icons">edit</span></a
+						>
+						<form
+							action="/pets/<%= pet.id %>/food/<%= food.id %>/delete"
+							method="POST"
+							onsubmit="showConfirmModal(event, this)"
+						>
+							<button type="submit" class="btn-icon btn-delete" title="Delete">
+								<span class="material-icons">delete</span>
+							</button>
+						</form>
+					</div>
+				</div>
+				<% }) %> <% } else { %>
+				<p style="color: #999; text-align: center">No food logs found.</p>
+				<% } %>
+			</div>
+		</div>
+	</body>
+</html>

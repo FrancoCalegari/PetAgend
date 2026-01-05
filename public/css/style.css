@@ -1,0 +1,618 @@
+/* Light Mode (Default) */
+:root {
+	--primary-color: #6c5ce7;
+	--primary-dark: #5b4cc4;
+	--secondary-color: #a29bfe;
+	--accent-color: #00cec9;
+	--background-color: #f7f9fc;
+	--card-bg: #ffffff;
+	--text-main: #2d3436;
+	--text-light: #636e72;
+	--border-color: #dfe6e9;
+	--border-radius: 16px;
+	--shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+	:root {
+		--primary-color: #a29bfe;
+		--primary-dark: #6c5ce7;
+		--secondary-color: #6c5ce7;
+		--accent-color: #00cec9;
+		--background-color: #1a1a2e;
+		--card-bg: #16213e;
+		--text-main: #eaeaea;
+		--text-light: #b2bec3;
+		--border-color: #2d3436;
+		--shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+	}
+}
+
+/* Manual Dark Mode Override */
+[data-theme="dark"] {
+	--primary-color: #a29bfe;
+	--primary-dark: #6c5ce7;
+	--secondary-color: #6c5ce7;
+	--accent-color: #00cec9;
+	--background-color: #1a1a2e;
+	--card-bg: #16213e;
+	--text-main: #eaeaea;
+	--text-light: #b2bec3;
+	--border-color: #2d3436;
+	--shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Manual Light Mode Override */
+[data-theme="light"] {
+	--primary-color: #6c5ce7;
+	--primary-dark: #5b4cc4;
+	--secondary-color: #a29bfe;
+	--accent-color: #00cec9;
+	--background-color: #f7f9fc;
+	--card-bg: #ffffff;
+	--text-main: #2d3436;
+	--text-light: #636e72;
+	--border-color: #dfe6e9;
+	--shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+body {
+	font-family: "Outfit", "Segoe UI", sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: var(--background-color);
+	color: var(--text-main);
+	-webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+	color: var(--text-main);
+	font-weight: 700;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+/* Landing Page */
+.landing-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+	color: white;
+	text-align: center;
+	padding: 20px;
+}
+
+.landing-container h1 {
+	font-size: 3.5rem;
+	color: white;
+	margin-bottom: 0.5rem;
+	text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.landing-container p {
+	font-size: 1.25rem;
+	opacity: 0.9;
+	max-width: 600px;
+	margin-bottom: 2rem;
+}
+
+/* Buttons */
+.btn {
+	display: inline-block;
+	padding: 14px 28px;
+	border-radius: 50px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	border: none;
+	font-size: 1rem;
+}
+
+.btn-primary {
+	background-color: var(--primary-color);
+	color: white;
+	box-shadow: 0 4px 12px rgba(108, 92, 231, 0.3);
+}
+
+.btn-primary:hover {
+	background-color: var(--primary-dark);
+	transform: translateY(-2px);
+	box-shadow: 0 6px 16px rgba(108, 92, 231, 0.4);
+}
+
+.btn-secondary {
+	background-color: white;
+	color: var(--primary-color);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.btn-secondary:hover {
+	background-color: #f1f1f1;
+	transform: translateY(-2px);
+}
+
+.auth-buttons {
+	display: flex;
+	gap: 1.5rem;
+}
+
+/* Forms (Login/Register/Add Pet) */
+form {
+	background: var(--card-bg);
+	border-radius: var(--border-radius);
+	box-shadow: var(--shadow);
+	width: 100%;
+	max-width: 400px;
+}
+
+.styled-form {
+	padding: 2.5rem;
+	margin: 2rem auto;
+	max-width: 500px; /* Slightly wider for data entry */
+}
+
+/* Ensure Login/Register also look good if they don't have the class yet, or update them too. 
+   Actually, the user removed padding from generic form, so login/register might look bad now. 
+   I should check login/register templates. They rely on 'form' tag style. 
+   I will add .styled-form to them as well or re-add default padding to form but user specifically removed it? 
+   Maybe user wanted to control it via class. I will assume I need to add the class.
+*/
+
+form h2 {
+	text-align: center;
+	margin-bottom: 1.5rem;
+	color: var(--primary-color);
+}
+
+input,
+select,
+textarea {
+	width: 100%;
+	padding: 12px 15px;
+	margin-bottom: 1.25rem;
+	border: 2px solid var(--border-color);
+	border-radius: 12px;
+	font-size: 1rem;
+	transition: border-color 0.2s;
+	box-sizing: border-box;
+	font-family: inherit;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+	border-color: var(--primary-color);
+	outline: none;
+}
+
+label {
+	display: block;
+	margin-bottom: 0.5rem;
+	font-weight: 600;
+	color: var(--text-light);
+	font-size: 0.9rem;
+}
+
+form button {
+	width: 100%;
+	padding: 14px;
+	background: var(--primary-color);
+	color: white;
+	border: none;
+	border-radius: 12px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: background 0.2s;
+}
+
+form button:hover {
+	background: var(--primary-dark);
+}
+
+/* Dashboard */
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 2rem 0;
+	padding: 0 1rem;
+}
+
+.header h1 {
+	font-size: 2rem;
+	color: var(--primary-color);
+}
+
+.add-pet {
+	background: var(--accent-color);
+	color: white;
+	padding: 10px 20px;
+	border-radius: 50px;
+	box-shadow: 0 4px 10px rgba(0, 206, 201, 0.3);
+	font-weight: 600;
+}
+
+.pet-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+	gap: 2rem;
+	padding: 1rem;
+}
+
+.pet-card {
+	background: var(--card-bg);
+	padding: 1.5rem;
+	border-radius: var(--border-radius);
+	box-shadow: var(--shadow);
+	text-align: center;
+	transition: transform 0.3s ease;
+	position: relative;
+	overflow: hidden;
+}
+
+.pet-card:hover {
+	transform: translateY(-5px);
+}
+
+.pet-card img {
+	width: 120px;
+	height: 120px;
+	border-radius: 50%;
+	object-fit: cover;
+	margin-bottom: 1rem;
+	border: 4px solid var(--background-color);
+}
+
+.pet-card h3 {
+	margin: 0.5rem 0;
+	font-size: 1.25rem;
+}
+
+.pet-card p {
+	color: var(--text-light);
+	margin-bottom: 1rem;
+}
+
+.pet-card a {
+	display: inline-block;
+	color: var(--primary-color);
+	font-weight: 600;
+	margin-top: 0.5rem;
+}
+
+/* Details Page */
+.container {
+	max-width: 900px;
+	margin: 2rem auto;
+	background: var(--card-bg);
+	padding: 2.5rem;
+	border-radius: var(--border-radius);
+	box-shadow: var(--shadow);
+}
+
+.detail-header {
+	display: flex;
+	align-items: center;
+	gap: 2rem;
+	border-bottom: 1px solid #dfe6e9;
+	padding-bottom: 2rem;
+	margin-bottom: 2rem;
+}
+
+.detail-header img {
+	width: 160px;
+	height: 160px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 5px solid var(--background-color);
+}
+
+.pet-info h1 {
+	margin-bottom: 0.5rem;
+	font-size: 2.5rem;
+}
+
+.pet-badges {
+	display: flex;
+	gap: 10px;
+	margin-top: 10px;
+}
+
+.badge {
+	background: #dfe6e9;
+	padding: 5px 12px;
+	border-radius: 20px;
+	font-size: 0.85rem;
+	color: var(--text-light);
+	font-weight: 600;
+}
+
+.section-title {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 1.5rem;
+	color: var(--primary-color);
+}
+
+.action-btn-small {
+	background: var(--background-color);
+	color: var(--primary-color);
+	padding: 8px 16px;
+	border-radius: 20px;
+	font-size: 0.9rem;
+	font-weight: 600;
+	border: 1px solid transparent;
+	transition: all 0.2s;
+}
+
+.action-btn-small:hover {
+	background: white;
+	border-color: var(--primary-color);
+}
+
+.list-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 1rem;
+	border-bottom: 1px solid #f1f1f1;
+	transition: background 0.2s;
+}
+
+.list-item:hover {
+	background-color: #fafafa;
+}
+
+.list-item:last-child {
+	border-bottom: none;
+}
+
+.list-content strong {
+	display: block;
+	color: var(--text-main);
+	margin-bottom: 4px;
+}
+
+.list-content p {
+	margin: 0;
+	color: var(--text-light);
+	font-size: 0.95rem;
+}
+
+/* User & Header Improvements */
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 1.5rem 0;
+	padding: 1rem 1.5rem;
+	background: var(--card-bg);
+	border-radius: var(--border-radius);
+	box-shadow: var(--shadow);
+}
+
+.user-info {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+}
+
+.user-avatar {
+	width: 40px;
+	height: 40px;
+	background-color: var(--primary-color);
+	color: white;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: bold;
+	font-size: 1.2rem;
+}
+
+.logout-btn {
+	color: #ff7675;
+	font-weight: 600;
+	border: 1px solid #ff7675;
+	padding: 8px 16px;
+	border-radius: 50px;
+	transition: all 0.2s;
+}
+
+.logout-btn:hover {
+	background: #ff7675;
+	color: white;
+}
+
+/* CRUD Action Buttons */
+.actions {
+	display: flex;
+	gap: 8px;
+	margin-top: 10px;
+}
+
+.btn-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	border-radius: 8px;
+	transition: all 0.2s;
+	border: none;
+	cursor: pointer;
+	text-decoration: none;
+	padding: 8px;
+}
+
+.btn-edit {
+	background-color: rgba(108, 92, 231, 0.1);
+	color: var(--primary-color);
+}
+
+.btn-edit:hover {
+	background-color: var(--primary-color);
+	color: white;
+}
+
+.btn-delete {
+	background-color: rgba(255, 118, 117, 0.1);
+	color: #d63031;
+}
+
+.btn-delete:hover {
+	background-color: #d63031;
+	color: white;
+}
+
+.btn-view {
+	background-color: rgba(0, 206, 201, 0.1);
+	color: var(--accent-color);
+}
+
+.btn-view:hover {
+	background-color: var(--accent-color);
+	color: white;
+}
+
+/* Custom Modal */
+.modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.3s ease;
+	z-index: 1000;
+}
+
+.modal-overlay.active {
+	opacity: 1;
+	visibility: visible;
+}
+
+.modal-content {
+	background: white;
+	padding: 2rem;
+	border-radius: 16px;
+	text-align: center;
+	max-width: 400px;
+	width: 90%;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+	transform: translateY(20px);
+	transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-content {
+	transform: translateY(0);
+}
+
+.modal-title {
+	font-size: 1.5rem;
+	margin-bottom: 1rem;
+	color: var(--text-main);
+}
+
+.modal-text {
+	color: var(--text-light);
+	margin-bottom: 2rem;
+}
+
+.modal-actions {
+	display: flex;
+	justify-content: center;
+	gap: 1rem;
+}
+
+.btn-confirm {
+	background-color: #d63031;
+	color: white;
+	padding: 10px 24px;
+	border-radius: 8px;
+	border: none;
+	cursor: pointer;
+	font-weight: 600;
+}
+
+.btn-cancel {
+	background-color: #dfe6e9;
+	color: var(--text-main);
+	padding: 10px 24px;
+	border-radius: 8px;
+	border: none;
+	cursor: pointer;
+	font-weight: 600;
+}
+
+/* Footer */
+.footer {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: var(--card-bg);
+	border-top: 1px solid var(--border-color);
+	padding: 12px 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 8px;
+	box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+	z-index: 100;
+}
+
+.theme-toggle {
+	display: flex;
+	gap: 4px;
+	background: var(--background-color);
+	padding: 4px;
+	border-radius: 12px;
+}
+
+.theme-btn {
+	background: transparent;
+	border: none;
+	padding: 8px 12px;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: all 0.2s;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--text-light);
+}
+
+.theme-btn:hover {
+	background: var(--card-bg);
+	color: var(--primary-color);
+}
+
+.theme-btn.active {
+	background: var(--primary-color);
+	color: white;
+}
+
+.theme-btn .material-icons {
+	font-size: 20px;
+}
+
+/* Add padding to body to account for fixed footer */
+body {
+	padding-bottom: 60px;
+}

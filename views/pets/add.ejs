@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title><%= title %> - PetAgent</title>
+		<link rel="stylesheet" href="/css/style.css" />
+		<link rel="stylesheet" href="/css/responsive.css" />
+		<script>
+			function toggleCategoryInput() {
+				const select = document.getElementById("category_select");
+				const inputDiv = document.getElementById("new_category_div");
+				if (select.value === "other") {
+					inputDiv.style.display = "block";
+				} else {
+					inputDiv.style.display = "none";
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<a
+			href="/dashboard"
+			class="back"
+			style="display: block; margin: 20px; color: var(--primary-color)"
+			>&larr; Back to Dashboard</a
+		>
+		<form
+			action="/pets/add"
+			method="POST"
+			enctype="multipart/form-data"
+			class="styled-form"
+		>
+			<h2>Add New Pet</h2>
+			<input type="text" name="name" placeholder="Name" required />
+			<input type="text" name="surname" placeholder="Surname" />
+			<input type="text" name="dni" placeholder="DNI/Chip ID" />
+			<input type="text" name="blood_type" placeholder="Blood Type" />
+
+			<label>Category:</label>
+			<select
+				name="category_id"
+				id="category_select"
+				onchange="toggleCategoryInput()"
+			>
+				<% categories.forEach(cat => { %>
+				<option value="<%= cat.id %>"><%= cat.name %></option>
+				<% }) %>
+				<option value="other">Other (Create New)</option>
+			</select>
+
+			<div id="new_category_div" style="display: none">
+				<input
+					type="text"
+					name="new_category"
+					placeholder="Enter Category Name"
+				/>
+			</div>
+
+			<label>Profile Photo:</label>
+			<input type="file" name="photo" accept="image/*" />
+
+			<button type="submit">Save Pet</button>
+		</form>
+	</body>
+</html>

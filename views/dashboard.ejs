@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="theme-color" content="#6c5ce7" />
+		<title><%= title %> - PetAgent</title>
+		<link rel="stylesheet" href="/css/style.css" />
+		<link rel="stylesheet" href="/css/responsive.css" />
+		<script src="/js/theme.js"></script>
+	</head>
+	<body>
+		<div class="header">
+			<h1>Your Pets</h1>
+			<div class="user-info">
+				<a
+					href="/profile"
+					class="user-avatar"
+					style="text-decoration: none; overflow: hidden"
+				>
+					<% if (user && user.photo_url) { %>
+					<img
+						src="<%= user.photo_url %>"
+						alt="Me"
+						style="width: 100%; height: 100%; object-fit: cover"
+					/>
+					<% } else { %>
+					<img
+						src="/images/icon-512.png"
+						alt="Me"
+						style="width: 100%; height: 100%; object-fit: cover"
+					/>
+					<% } %>
+				</a>
+				<a href="/pets/add" class="add-pet">+ New Pet</a>
+				<a href="/auth/logout" class="logout-btn">Logout</a>
+			</div>
+		</div>
+
+		<div class="pet-grid">
+			<% if (pets.length === 0) { %>
+			<p>No pets found. Add one!</p>
+			<% } else { %> <% pets.forEach(pet => { %>
+			<div class="pet-card">
+				<img
+					src="<%= pet.photo_url || '/images/default-pet.png' %>"
+					alt="<%= pet.name %>"
+				/>
+				<h3><%= pet.name %></h3>
+				<p><%= pet.surname %></p>
+				<a href="/pets/<%= pet.id %>">View Details</a>
+			</div>
+			<% }) %> <% } %>
+		</div>
+		<%- include('partials/footer') %>
+	</body>
+</html>

@@ -1,0 +1,92 @@
+/* Responsive Design for Mobile Devices */
+@media (max-width: 768px) {
+	.container {
+		padding: 15px;
+	}
+
+	/* Header adjustments */
+	.header {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 15px;
+	}
+
+	.user-info {
+		width: 100%;
+		justify-content: space-between;
+	}
+
+	/* Dashboard Grid */
+	.pets-grid {
+		grid-template-columns: 1fr; /* Single column on mobile */
+	}
+
+	/* Forms */
+	form {
+		padding: 20px;
+		width: 100%;
+		box-sizing: border-box;
+	}
+
+	.styled-form {
+		padding: 20px;
+	}
+
+	/* Pet Detail Header */
+	.detail-header {
+		flex-direction: column;
+		text-align: center;
+	}
+
+	.detail-header img {
+		margin-right: 0;
+		margin-bottom: 20px;
+	}
+
+	.pet-info {
+		width: 100%;
+	}
+
+	.pet-info h1 {
+		font-size: 1.8rem;
+	}
+
+	.pet-badges {
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+
+	/* List Items (Medical/Food) */
+	.list-item {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.list-content {
+		margin-bottom: 15px;
+		width: 100%;
+	}
+
+	.actions {
+		width: 100%;
+		justify-content: flex-end;
+	}
+
+	/* Section Titles */
+	.section-title {
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.action-btn-small {
+		padding: 8px 12px;
+		font-size: 0.9rem;
+	}
+
+	/* Modals */
+	.modal-content {
+		width: 90%;
+		margin: 20% auto;
+	}
+}

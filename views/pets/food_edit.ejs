@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title><%= title %> - PetAgent</title>
+		<link rel="stylesheet" href="/css/style.css" />
+		<link rel="stylesheet" href="/css/responsive.css" />
+	</head>
+	<body>
+		<a
+			href="/pets/<%= pet.id %>"
+			class="back"
+			style="display: block; margin: 20px; color: var(--primary-color)"
+			>&larr; Back to Pet</a
+		>
+		<form
+			action="/pets/<%= pet.id %>/food/<%= log.id %>/edit"
+			method="POST"
+			class="styled-form"
+		>
+			<h2>Edit Food Log</h2>
+			<input
+				type="text"
+				name="food_name"
+				value="<%= log.food_name %>"
+				placeholder="Food Name"
+				required
+			/>
+			<input
+				type="text"
+				name="quantity"
+				value="<%= log.quantity %>"
+				placeholder="Quantity (e.g. 1 cup, 200g)"
+			/>
+			<label>Fed At:</label>
+			<!-- Note: Date formatting for datetime-local input is tricky in EJS/JS, keeping it simple or might need moment.js/manual formatting. -->
+			<!-- Using a simpler text input fallback or handling ISO string -->
+			<input
+				type="datetime-local"
+				name="fed_at"
+				value="<%= new Date(log.fed_at).toISOString().slice(0, 16) %>"
+			/>
+			<textarea name="notes" placeholder="Notes"><%= log.notes %></textarea>
+			<button type="submit">Update Log</button>
+		</form>
+	</body>
+</html>

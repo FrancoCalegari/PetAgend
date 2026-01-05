@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title><%= title %> - PetAgent</title>
+		<link rel="stylesheet" href="/css/style.css" />
+		<link rel="stylesheet" href="/css/responsive.css" />
+	</head>
+	<body>
+		<a
+			href="/pets/<%= pet.id %>"
+			class="back"
+			style="display: block; margin: 20px; color: var(--primary-color)"
+			>&larr; Back to Pet</a
+		>
+		<form
+			action="/pets/<%= pet.id %>/food/add"
+			method="POST"
+			class="styled-form"
+		>
+			<h2>Add Food Log for <%= pet.name %></h2>
+			<input type="text" name="food_name" placeholder="Food Name" required />
+			<input
+				type="text"
+				name="quantity"
+				placeholder="Quantity (e.g. 1 cup, 200g)"
+			/>
+			<label>Fed At:</label>
+			<input type="datetime-local" name="fed_at" />
+			<textarea
+				name="notes"
+				placeholder="Notes (e.g. liked it, threw up)"
+			></textarea>
+			<button type="submit">Log Food</button>
+		</form>
+	</body>
+</html>

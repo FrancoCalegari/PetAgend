@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %> - PetAgent</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+  <script>
+    function toggleCategoryInput() {
+      const select = document.getElementById('category_select');
+      const inputDiv = document.getElementById('new_category_div');
+      if (select.value === 'other') {
+        inputDiv.style.display = 'block';
+      } else {
+        inputDiv.style.display = 'none';
+      }
+    }
+  </script>
+</head>
+<body>
+  <a href="/pets/<%= pet.id %>" class="back" style="display:block; margin:20px; color:var(--primary-color)">&larr; Back to Pet</a>
+  
+  <form action="/pets/<%= pet.id %>/edit" method="POST" enctype="multipart/form-data" class="styled-form">
+    <h2>Edit Pet Info</h2>
+    
+    <div style="text-align: center; margin-bottom: 20px;">
+        <img src="<%= pet.photo_url || '/images/icon-512.png' %>" alt="Pet Photo" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary-color);">
+    </div>
+
+    <label>Name:</label>
+    <input type="text" name="name" value="<%= pet.name %>" required>
+    
+    <label>Surname:</label>
+    <input type="text" name="surname" value="<%= pet.surname %>">
+    
+    <label>DNI/Chip ID:</label>
+    <input type="text" name="dni" value="<%= pet.dni %>">
+    
+    <label>Blood Type:</label>
+    <input type="text" name="blood_type" value="<%= pet.blood_type %>">
+
+    <label>Category:</label>
+    <select name="category_id" id="category_select" onchange="toggleCategoryInput()">
+      <% categories.forEach(cat => { %>
+        <option value="<%= cat.id %>" <%= pet.categoryId === cat.id ? 'selected' : '' %>><%= cat.name %></option>
+      <% }) %>
+      <option value="other">Other (Create New)</option>
+    </select>
+
+    <div id="new_category_div" style="display: none;">
+      <input type="text" name="new_category" placeholder="Enter Category Name">
+    </div>
+
+    <label>Update Photo:</label>
+    <input type="file" name="photo" accept="image/*">
+
+    <button type="submit">Update Pet</button>
+  </form>
+</body>
+</html>

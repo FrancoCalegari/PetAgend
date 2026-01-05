@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="theme-color" content="#6c5ce7" />
+		<title><%= title %> - PetAgent</title>
+		<link rel="stylesheet" href="/css/style.css" />
+		<link rel="stylesheet" href="/css/responsive.css" />
+		<script src="/js/theme.js"></script>
+	</head>
+	<body>
+		<div style="padding: 20px">
+			<a
+				href="/dashboard"
+				class="back"
+				style="
+					color: var(--primary-color);
+					font-weight: 600;
+					margin-bottom: 20px;
+					display: inline-block;
+				"
+				>&larr; Back to Dashboard</a
+			>
+		</div>
+
+		<div class="container">
+			<div class="header">
+				<h1>My Profile</h1>
+			</div>
+
+			<!-- Profile Info Form -->
+			<form
+				action="/profile/update"
+				method="POST"
+				enctype="multipart/form-data"
+				class="styled-form"
+				style="margin-bottom: 40px"
+			>
+				<h2>Edit Profile</h2>
+
+				<div style="text-align: center; margin-bottom: 20px">
+					<img
+						src="<%= user.photo_url || '/images/icon-512.png' %>"
+						alt="Profile"
+						style="
+							width: 100px;
+							height: 100px;
+							border-radius: 50%;
+							object-fit: cover;
+							border: 3px solid var(--primary-color);
+						"
+					/>
+				</div>
+
+				<label>Profile Picture:</label>
+				<input type="file" name="photo" accept="image/*" />
+
+				<label>Username:</label>
+				<input
+					type="text"
+					name="username"
+					value="<%= user.username %>"
+					required
+				/>
+
+				<label>Email:</label>
+				<input
+					type="email"
+					name="email"
+					value="<%= user.email %>"
+					placeholder="email@example.com"
+				/>
+
+				<button type="submit">Update Profile</button>
+			</form>
+
+			<!-- Change Password Form -->
+			<form action="/profile/password" method="POST" class="styled-form">
+				<h2>Change Password</h2>
+				<input
+					type="password"
+					name="currentPassword"
+					placeholder="Current Password"
+					required
+				/>
+				<input
+					type="password"
+					name="newPassword"
+					placeholder="New Password"
+					required
+				/>
+				<input
+					type="password"
+					name="confirmPassword"
+					placeholder="Confirm New Password"
+					required
+				/>
+				<button type="submit" style="background-color: #ff7675">
+					Change Password
+				</button>
+			</form>
+		</div>
+	</body>
+</html>

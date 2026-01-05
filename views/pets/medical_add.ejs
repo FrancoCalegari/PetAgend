@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title><%= title %> - PetAgent</title>
+		<link rel="stylesheet" href="/css/style.css" />
+		<link rel="stylesheet" href="/css/responsive.css" />
+	</head>
+	<body>
+		<a
+			href="/pets/<%= pet.id %>"
+			class="back"
+			style="display: block; margin: 20px; color: var(--primary-color)"
+			>&larr; Back to Pet</a
+		>
+		<form
+			action="/pets/<%= pet.id %>/medical/add"
+			method="POST"
+			enctype="multipart/form-data"
+			class="styled-form"
+		>
+			<h2>Add Medical Document for <%= pet.name %></h2>
+			<input type="text" name="doctor_name" placeholder="Doctor Name" />
+			<label>Date:</label>
+			<input type="date" name="date" required />
+			<textarea name="info" placeholder="Important Info/Notes"></textarea>
+			<label>File (Image/PDF/Video):</label>
+			<input type="file" name="file" required />
+			<button type="submit">Upload Document</button>
+		</form>
+	</body>
+</html>
