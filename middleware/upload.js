@@ -17,17 +17,45 @@ const storage = multer.diskStorage({
 
 // File filter
 const fileFilter = (req, file, cb) => {
-	// Accept images, pdfs, videos
-	const allowedTypes = /jpeg|jpg|png|gif|pdf|mp4|mov/;
+	// Accept images, videos, documents, and spreadsheets
+	const allowedTypes =
+		/jpeg|jpg|png|gif|webp|avif|pdf|mp4|mov|doc|docx|odt|xls|xlsx|ods|csv/;
 	const extname = allowedTypes.test(
 		path.extname(file.originalname).toLowerCase()
 	);
-	const mimetype = allowedTypes.test(file.mimetype);
 
-	if (mimetype && extname) {
+	// Check MIME types
+	const allowedMimeTypes = [
+		// Images
+		"image/jpeg",
+		"image/jpg",
+		"image/png",
+		"image/gif",
+		"image/webp",
+		"image/avif",
+		// Videos
+		"video/mp4",
+		"video/quicktime",
+		// Documents
+		"application/pdf",
+		"application/msword", // .doc
+		"application/vnd.openxmlformats-officedocument.wordprocessingml.document", // .docx
+		"application/vnd.oasis.opendocument.text", // .odt
+		// Spreadsheets
+		"application/vnd.ms-excel", // .xls
+		"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // .xlsx
+		"application/vnd.oasis.opendocument.spreadsheet", // .ods
+		"text/csv",
+	];
+
+	const mimetypeValid = allowedMimeTypes.includes(file.mimetype);
+
+	if (mimetypeValid && extname) {
 		return cb(null, true);
 	} else {
-		cb("Error: File type not supported!");
+		cb(
+			`Error: File type not supported! Allowed: images, videos, PDF, documents, spreadsheets`
+		);
 	}
 };
 

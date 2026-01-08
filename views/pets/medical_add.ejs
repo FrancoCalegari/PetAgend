@@ -25,8 +25,13 @@
 			<label>Date:</label>
 			<input type="date" name="date" required />
 			<textarea name="info" placeholder="Important Info/Notes"></textarea>
-			<label>File (Image/PDF/Video):</label>
-			<input type="file" name="file" required />
+			<label>File (Images, Videos, PDF, Documents, Spreadsheets):</label>
+			<input
+				type="file"
+				name="file"
+				accept=".jpg,.jpeg,.png,.gif,.webp,.avif,.mp4,.mov,.pdf,.doc,.docx,.odt,.xls,.xlsx,.ods,.csv"
+				required
+			/>
 			<button type="submit">Upload Document</button>
 		</form>
 	</body>
