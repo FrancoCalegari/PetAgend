@@ -11,6 +11,7 @@
 	--border-color: #dfe6e9;
 	--border-radius: 16px;
 	--shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+	--badge-background: #ebebeb;
 }
 
 /* Dark Mode */
@@ -26,6 +27,7 @@
 		--text-light: #b2bec3;
 		--border-color: #2d3436;
 		--shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+		--badge-background: #2c3a62;
 	}
 }
 
@@ -38,9 +40,10 @@
 	--background-color: #1a1a2e;
 	--card-bg: #16213e;
 	--text-main: #eaeaea;
-	--text-light: #b2bec3;
+	--text-light: #cdd5eb;
 	--border-color: #2d3436;
 	--shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+	--badge-background: #2c3a62;
 }
 
 /* Manual Light Mode Override */
@@ -55,6 +58,7 @@
 	--text-light: #636e72;
 	--border-color: #dfe6e9;
 	--shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+	--badge-background: #d6d6d6;
 }
 
 body {
@@ -328,7 +332,7 @@ form button:hover {
 }
 
 .badge {
-	background: #dfe6e9;
+	background: var(--badge-background);
 	padding: 5px 12px;
 	border-radius: 20px;
 	font-size: 0.85rem;
@@ -370,7 +374,7 @@ form button:hover {
 }
 
 .list-item:hover {
-	background-color: #fafafa;
+	background-color: #1414143b;
 }
 
 .list-item:last-child {
