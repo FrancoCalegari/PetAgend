@@ -1,9 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const { User } = require("../models");
-const bcrypt = require("bcrypt");
+const supabase = require("../database/supabase");
 const upload = require("../middleware/upload");
-const path = require("path");
 
 // Middleware to check auth
 const requireAuth = (req, res, next) => {
@@ -14,10 +12,17 @@ const requireAuth = (req, res, next) => {
 // GET Profile View
 router.get("/", requireAuth, async (req, res) => {
 	try {
-		const user = await User.findByPk(req.session.userId);
+		const { data: user, error } = await supabase
+			.from("users")
+			.select("*")
+			.eq("id", req.session.userId)
+			.single();
+
+		if (error) throw error;
+
 		res.render("user/profile", { title: "My Profile", user });
 	} catch (error) {
-		console.error(error);
+		console.error("Error loading profile:", error);
 		res.status(500).send("Error loading profile");
 	}
 });
@@ -29,7 +34,6 @@ router.post(
 	upload.single("photo"),
 	async (req, res) => {
 		try {
-			const user = await User.findByPk(req.session.userId);
 			const { username, email } = req.body;
 
 			const updateData = { username, email };
@@ -38,10 +42,19 @@ router.post(
 				updateData.photo_url = "/uploads/" + req.file.filename;
 			}
 
-			await user.update(updateData);
+			const { error } = await supabase
+				.from("users")
+				.update(updateData)
+				.eq("id", req.session.userId);
+
+			if (error) throw error;
+
+			// Update session username if needed
+			req.session.username = username;
+
 			res.redirect("/profile");
 		} catch (error) {
-			console.error(error);
+			console.error("Error updating profile:", error);
 			res.status(500).send("Error updating profile: " + error.message);
 		}
 	}
@@ -56,26 +69,19 @@ router.post("/password", requireAuth, async (req, res) => {
 			return res.status(400).send("New passwords do not match");
 		}
 
-		const user = await User.findByPk(req.session.userId);
-		const validPassword = await bcrypt.compare(currentPassword, user.password);
+		// Use Supabase Auth to update password
+		const { error } = await supabase.auth.updateUser({
+			password: newPassword,
+		});
 
-		if (!validPassword) {
-			return res.status(401).send("Incorrect current password");
+		if (error) {
+			console.error("Password update error:", error);
+			return res.status(500).send("Error changing password: " + error.message);
 		}
-
-		// Hash new password
-		const salt = await bcrypt.genSalt(10);
-		const hashedPassword = await bcrypt.hash(newPassword, salt);
-
-		// Update manually to bypass hook if needed, or rely on hook if it handles updates (hooks usually run on update if configured)
-		// Sequelize hooks: beforeCreate, beforeUpdate. User model only has beforeCreate.
-		// So we hash manually here.
-
-		await user.update({ password: hashedPassword });
 
 		res.redirect("/profile");
 	} catch (error) {
-		console.error(error);
+		console.error("Error changing password:", error);
 		res.status(500).send("Error changing password");
 	}
 });
